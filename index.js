@@ -24,39 +24,38 @@ const server = http.createServer((req, res) => {
     //         res.end(content);
     //     })
     // }    
+
     let filePath = path.join(
-        __dirname, 
-        // if home, just use index.html, otherwise find file with same name as req.url
-        req.url === '/' ? 'index.html' : `${req.url}.html`
-    );
+        __dirname,
+        req.url === "/" ? "index.html" : req.url
+      );
     
     // Extension of file
     let extname = path.extname(filePath);
 
     // Default content type
-    let contentType = 'text/html';
+    let contentType = "text/html";
 
-    // Check ext and set content type
-    switch(extname) {
-        case '.js':
-            contentType = 'text/javascript';
-            break;
-        case '.css':
-            contentType = 'text/css';
-            break;
-        case '.json': 
-            contentType = 'application/json';
-            break;
-        case '.png':
-            contentType = 'img/png';
-            break;
-        case '.jpg':
-            contentType = 'image/jpg';
-            break;
-        default: 
-            contentType = 'text/html';
-            break;
+      // Check ext and set content type
+    switch (extname) {
+      case ".js":
+        contentType = "text/javascript";
+        break;
+      case ".css":
+        contentType = "text/css";
+        break;
+      case ".json":
+        contentType = "application/json";
+        break;
+      case ".png":
+        contentType = "image/png";
+        break;
+      case ".jpg":
+        contentType = "image/jpg";
+        break;
     }
+
+    if (contentType == "text/html" && extname == "") filePath += ".html";
 
     // Read file
     fs.readFile(filePath, (err, content) => {
