@@ -62,8 +62,10 @@ const server = http.createServer((req, res) => {
         if(err) {
             if(err.code == 'ENOENT') {
                 // Page not found
-                fs.readFile(path.join(__dirname, '404.html'), (err, content) => {
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                fs.readFile(
+                    path.join(__dirname, '404.html'), 
+                    (err, content) => {
+                    res.writeHead(404, { 'Content-Type': 'text/html' });
                     res.end(content, 'utf8');
                 })
             } else {
